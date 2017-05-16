@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+set -e
+rm -rf bundle
+mkdir bundle
+pushd bundle
+git clone https://github.com/dzz/beagle
+git clone $1
+INI_PATH=$(find ./ -name "application.ini")
+DIRNAME=$(dirname $INI_PATH)
+mv $DIRNAME ./beagle/bundled_application
+echo "cd beagle; ./beagle 960 540 0 60 ./bundled_application/" > ./launch
+echo "cd beagle & beagle 960 540 0 60 bundled_application" > ./launch.bat
+chmod +x ./launch
+popd
